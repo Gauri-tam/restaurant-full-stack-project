@@ -1,0 +1,24 @@
+spring:
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: gauri@gmail.com   # DOMAINS EMAIL
+    password: Pass@123  # DOMAINS EMAIL PASSWORD
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+application:
+   security:
+     jwt:
+       security-key: 0c5332768693a40a1a4747cfe020494138a36405063fe923a99e3536205e452b
+       expiration: 3600000 # for 1 hour
+       refresh-token:
+        expiration: 86400000 # for a day
+
+security:  # // Supper_Admin
+  jwt:
+    username: OnnerCEO@gmail.com
+    password:  onner@123
