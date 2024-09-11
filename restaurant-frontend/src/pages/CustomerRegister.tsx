@@ -8,7 +8,7 @@ const CustomerRegister: React.FC<{}> = () => {
     const navigate = useNavigate();
 
     const [showMessage, setShowMassge] = useState<boolean>();
-    const [isRegister, setIsRegister] = useState<boolean | null>()  // unmout the component 
+    const [isRegister, setIsRegister] = useState<boolean>()
 
     const [userRegister, setUserRegister] = useState({
         firstName: "",
@@ -27,14 +27,11 @@ const CustomerRegister: React.FC<{}> = () => {
         });
     };
 
-    console.log(userRegister);
-
     const onSubmitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         await axios.post("http://localhost:8080/api/auth/customerRegistration", userRegister);
         setIsRegister(true);
-        setShowMassge(true)
-
+        setShowMassge(true);
     };
 
     if (isRegister) {
@@ -47,7 +44,7 @@ const CustomerRegister: React.FC<{}> = () => {
 
     return (
         <div className='py-2 px-2 h-screen flex flex-col items-center'>
-            <Form className=' border border-current rounded bg-gray-400' method="POST" onSubmit={onSubmitHandler}>
+            <Form className='bg-transparent rounded bg-gray-400' method="POST" onSubmit={onSubmitHandler}>
                 <div className=' mt-2 py-2'>
                     <img className='mx-auto h-10 w-auto rounded-full' src='https://png.pngtree.com/element_our/20200702/ourmid/pngtree-simple-registration-design-icon-image_2291733.jpg' alt='Registration Icon' />
                 </div>
@@ -59,7 +56,6 @@ const CustomerRegister: React.FC<{}> = () => {
                     <div className=''>
                         <Input
                             label="First Name"
-                            className='text-sm text-gray-base w-full  mr-3 py-3 px-4 h-2 border border-gray-200 rounded mb-2'
                             name="firstName"
                             type='text'
                             value={firstName}
@@ -68,7 +64,6 @@ const CustomerRegister: React.FC<{}> = () => {
 
                     <div className=''>
                         <Input
-                            className='text-sm text-gray-base w-full  mr-3 py-3 px-4 h-2 border border-gray-200 rounded mb-2'
                             label="Last Name"
                             name="lastName"
                             type='text'
@@ -78,7 +73,6 @@ const CustomerRegister: React.FC<{}> = () => {
 
                     <div className=''>
                         <Input
-                            className='text-sm text-gray-base w-full  mr-3 py-3 px-4 h-2 border border-gray-200 rounded mb-2'
                             label='Email'
                             name='email'
                             type='email'
@@ -88,7 +82,6 @@ const CustomerRegister: React.FC<{}> = () => {
 
                     <div className=''>
                         <Input
-                            className='text-sm text-gray-base w-full  mr-3 py-3 px-4 h-2 border border-gray-200 rounded mb-2'
                             label='Password'
                             name='password'
                             type='password'
@@ -97,7 +90,6 @@ const CustomerRegister: React.FC<{}> = () => {
                     </div>
                     <div className=''>
                         <Input
-                            className='text-sm text-gray-base w-full  mr-3 py-3 px-4 h-2 border border-gray-200 rounded mb-2'
                             label='Phone'
                             name='phone'
                             type='phone'
@@ -108,8 +100,15 @@ const CustomerRegister: React.FC<{}> = () => {
                         <div>
                             {showMessage && <p className='text-sm text-center text-blue-900'>Your Registered!</p>}
                         </div>
-                        <button type='button' className="text-center flex flex-row py-2 px-4 " onClick={onCancleHhandler}>Cancel</button>
-                        <button type='submit' className="bg-blue-600 rounded py-2 px-4 text-center text-white " >Submit</button>
+                        <button
+                            type='button'
+                            className="text-center flex flex-row py-2 px-4 "
+                            onClick={onCancleHhandler}>Cancel</button>
+                        <button
+                            type='submit'
+                            className="text-white bg-opacity-75 bg-black hover:bg-gray-950 focus:ring-4 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-gray-800 dark:hover:bg-gray-900 dark:focus:ring-gray-950" >
+                            Submit
+                        </button>
 
                     </div>
                 </div>

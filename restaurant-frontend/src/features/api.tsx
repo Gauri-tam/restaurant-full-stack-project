@@ -1,6 +1,7 @@
 // Wrapper for HTTP requests with Axios
 import axios from 'axios';
 
+// help only on get method
 export const restaurantApi = axios.create({
     baseURL: 'http://localhost:8080/restaurant',
 })
@@ -8,7 +9,7 @@ export const restaurantApi = axios.create({
 // Add an interceptor for all Customer requests  
 restaurantApi.interceptors.request.use((config: any) => {
 
-    const accessToken = localStorage.getItem("token");
+    const accessToken = localStorage.getItem("accessToken");
     config.headers.Authorization = `Bearer ${accessToken}`;
 
     return config;

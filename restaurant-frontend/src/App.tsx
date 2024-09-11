@@ -1,15 +1,15 @@
 // import "./App.css";
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import BackGroundImg from './images/wooden-board-empty-table-top-blurred-background.jpg'
 import Login from "./pages/Login";
 import Home from "./pages/Home";
-import RestaurantDetails from "./pages/RestaurantDetails";
-import Restaurants from "./pages/Restaurants";
-import RestaurantById from './component/RestaurantById';
-import RestaurantByName from './component/RestaurantByName';
 import RestaurantRegister from './pages/RestaurantRegister';
 import CustomerRegister from './pages/CustomerRegister';
-import AddMenus from './component/AddMenus';
+import AddMenus from './pages/AddMenus';
+import PageNotFound from "./component/PageNotFound";
+import AddRestaurant from "./pages/AddRestaurant";
+import Restaurants from "./pages/Restaurants";
 
 function App() {
   const router = createBrowserRouter([
@@ -17,7 +17,6 @@ function App() {
       path: '/',
       element: <Home />,
       children: [
-
         {
           path: 'restaurantRegister',
           element: <RestaurantRegister />
@@ -35,38 +34,35 @@ function App() {
           children: [
             {
               path: "add",
-              element: <Restaurants />,
-              children:[
+              element: <AddRestaurant />,
+              children: [
                 {
-                  path:"addMenu",
+                  path: "addMenu",
                   element: <AddMenus />
                 }
-              ] // post restaurant data in database
+              ] // post restaurant data in database with menus
             },
             {
               path: "get",
-              element: <RestaurantDetails />, // get all restaurant data
-              children: [
-                {
-                  path: ':restaurantId',
-                  element: <RestaurantById />
-                },
-                {
-                  path: ':restaurantName',
-                  element: <RestaurantByName />
-                }
-              ]
+              element: <Restaurants />, // get all restaurant data
             },
           ]
         }
       ]
+    },
+    {
+      path: '*',
+      element: <PageNotFound />  // user is redirect to Other Page 
     }
-
   ])
 
   return (
-    <div>
-      <RouterProvider router={router} />
+    <div className="bg-scroll bg-cover bg-center h-screen" style={{ backgroundImage: `url(${BackGroundImg})` }}>
+      <div className="w-full">
+        <div>
+          <RouterProvider router={router} />
+        </div>
+      </div>
     </div>
   )
 

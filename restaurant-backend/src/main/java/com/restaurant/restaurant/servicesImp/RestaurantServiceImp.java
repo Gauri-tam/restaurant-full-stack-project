@@ -30,6 +30,8 @@ public class RestaurantServiceImp implements RestaurantService {
     public Restaurant update(Restaurant restaurant, Long id) {
         return restaurantRepository.findById(id).map(newRestaurant -> {
             newRestaurant.setRestaurantName(restaurant.getRestaurantName());
+            newRestaurant.setAddress(restaurant.getAddress());
+            newRestaurant.setMenus(restaurant.getMenus());
             return restaurantRepository.save(newRestaurant);
         }).orElse(null);
     }
@@ -49,8 +51,8 @@ public class RestaurantServiceImp implements RestaurantService {
         return "Not Found!";
     }
 
-    @Override
-    public Page<Restaurant> getRestByMenuItem(Pageable pageable, String menuItemName) {
-        return restaurantRepository.findRestaurantByManuItem(pageable,menuItemName);
-    }
+//    @Override
+//    public Page<Restaurant> getRestByMenuItem(Pageable pageable, String menuItemName) {
+//        return restaurantRepository.findRestaurantByManuItem(pageable,menuItemName);
+//    }
 }

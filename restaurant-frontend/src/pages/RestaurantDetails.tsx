@@ -1,57 +1,62 @@
 import React, { useEffect, useState } from "react";
-import Menus from "../component/Menus";
-import SearchBar from "../UI/SearchBar";
+import SearchBar from "../component/SearchBar";
 import Error from "../messages/Error";
 import { restaurantApi } from "../features/api";
+import RestaurantList from "../component/RestaurantList";
+
 const RestaurantDetails: React.FC = () => {
 
-    const [isError, setIsError] = useState<boolean>();
+    const [isError, setIsError] = useState<boolean>(false);
     const [restaurants, setRestaurants] = useState<any[]>([]);
-    const [loading, setLoading] = useState<boolean>(true);
+    const [loading, setLoading] = useState<boolean>(true);  // https://png.pngtree.com/background/20231031/original/pngtree-3d-render-of-the-interior-of-a-cozy-cafe-restaurant-picture-image_5812445.jpg  
+   
 
-    useEffect(() => {
+    useEffect(() => { 
         const getdata = async () => {
             try {
-                const response = await restaurantApi.get('/getMenus')
-                setRestaurants((response).data.content)
-            } catch (error) {
-                console.error("Error fetching restaurant data:", error);
-                setIsError(true)
+                const response = await restaurantApi.get("/get");  // get the restaurant and address from database
+                console.log("Response received:", response);
+
+                if (response.data && response.data.content) {
+                    setRestaurants(response.data.content);
+                } else {
+                    console.error("Unexpected response structure:", response.data);
+                }
+            } catch (error: any) {
+                if (error.response) {
+                    console.error("Server responded with error:", error.response.data);
+                } else if (error.request) {
+                    console.error("No response received:", error.request);
+                } else {
+                    console.error("Error setting up the request:", error.message);
+                }
+                setIsError(true);
             } finally {
-                setLoading(false)
+                setLoading(false);
             }
-        }
-        getdata()
-    }, [])
+        };
 
-    // if (request.status === 401) {
-    //    return error("This page you were trying to view requires a valid user ID or password to access") 
-    // }
-
-    console.log("getMenus", restaurants);
+        getdata();
+    }, []);
 
     if (loading) {
-        return <div className="text-center text-blue-700">Loading...</div>;
+        return <div className="text-center text-black">Loading...</div>;
     }
-    
+
     return (
         <>
-            <SearchBar />
-            <div className="mx-10 my-5">
-                {isError && <Error message="You Don't Have Permission to Access This Resource!" />}
-                <div className="h-56 grid grid-cols-3 gap-4 content-stretch">
-                    {restaurants?.map((menuItem) => (
-                        <div key={menuItem.menuItemId} className="col-span-1">
-                            <Menus
-                                image={menuItem.menuItemImage}
-                                name={menuItem.menuItemName}
-                                description={menuItem.menuItemDescription}
-                                price={menuItem.menuItemPrice}
-                            />
-                        </div>
-                    ))}
+            <div className=" bg-white justify-items-start">
+                <SearchBar placeholder="Restaurant" />
+            </div>
+            <div className=" w-full h-full flex items-center justify-center bg-white">
+                <div className="mx-10 my-5 justify-between">
+                    {isError && <Error message="You Don't Have Permission to Access This Resource!" />}
+                    <div className="mx-60 my-5 place-items-center grid grid-cols-3 gap-3 content-stretch">
+                        <RestaurantList restaurantData={restaurants} />
+                    </div>
                 </div>
             </div>
+
         </>
     );
 };

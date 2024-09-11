@@ -2,14 +2,13 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import Input from '../component/Input';
 import Error from '../messages/Error';
-import { Link, Form, useNavigate, redirect } from 'react-router-dom';
+import { Link, Form, useNavigate } from 'react-router-dom';
 
 const Login: React.FC<{}> = () => {
 
     const navigate = useNavigate()
-
-    const [showMessage, setShowMessage] = useState<boolean>()
-    const [isLogin, setIsLogin] = useState<boolean | null>()
+    const emailRegex = /^[^\s@]+@gmail\.com$/;
+    const [message, setMessage] = useState<string>('')
     const [userLogin, setUserLogin] = useState({
         email: "",
         password: "",
@@ -17,39 +16,56 @@ const Login: React.FC<{}> = () => {
 
     const { email, password } = userLogin
 
+    // saving data
     function onChangeHandler(event: any) {
         event.preventDefault();
-        setUserLogin({ ...userLogin, [event.target.name]: event.target.value })
+        setUserLogin({
+            ...userLogin,
+            [event.target.name]: event.target.value
+        })
     }
 
     const onSubmitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
+        if (!emailRegex.test(userLogin.email)) {
+            setMessage("Email must be a valid Gmail address");
+            return
+        }
+
+        // Ensure email is in lowercase
         if (userLogin.email !== userLogin.email.toLowerCase()) {
+            setMessage("Email must be in lower Case");
             return;
         }
 
-        console.log("userLogin",userLogin);
-        
+        console.log("userLogin", userLogin);
 
-        const response = await axios.post('http://localhost:8080/api/auth/authenticate', userLogin)
-        setIsLogin(true)
-        setShowMessage(true)
-
-        console.log("response",response);
-
-        if (response.status === 403) {
-            return <Error message='Request failed with status code 403' />
+        if (userLogin.email.endsWith("@gmail.com")) {
+            setMessage("email is Must includes @gmail.com")
         }
 
-        const jwtToken = response.data.accessToken;
+        try {
+            const response = await axios.post('http://localhost:8080/api/auth/authenticate', userLogin);
 
-        localStorage.setItem('token', jwtToken);
-    }
+            console.log("response", response);
 
-    if (isLogin) {
-        redirect('/restaurant/get')
-    }
+            //store token
+            if (response.status === 200 && response.data?.accessToken) {
+                localStorage.setItem('accessToken', response.data.accessToken);
+                setMessage("You are Login!")
+                console.log("Access token saved to localStorage:", response.data.accessToken);
+                navigate("/restaurant/get")
+            }
+
+        } catch (error: any) {
+            console.error("Error during authentication:", error);
+
+            if (error.response && error.response.status === 403) {
+                return <Error message='Request failed with status code 403' />
+            }
+        }
+    };
 
     const onCancleHhandler = () => {
         navigate('..')
@@ -57,8 +73,7 @@ const Login: React.FC<{}> = () => {
 
     return (
         <div className='py-2 px-2 h-screen flex flex-col items-center'>
-            <Form className='mt-4 border border-current rounded bg-gray-400' method='POST' onSubmit={(e) => onSubmitHandler(e)}>
-
+            <Form className='mt-4 bg-transparent opacity-95 rounded bg-gray-400' method='POST' onSubmit={onSubmitHandler}>
                 <div className='mt-4 px-2'>
                     <img className="mx-auto h-10 w-auto rounded-full" src="https://i.pinimg.com/736x/3f/5a/d8/3f5ad816179850d23695910e906554a7.jpg?color=indigo&shade=600" alt="Login From icon" />
                     <p>If You Don't Have an Account yet That Please <Link to="/register">Register</Link> first</p>
@@ -67,7 +82,6 @@ const Login: React.FC<{}> = () => {
                     <div className=''>
                         <Input
                             label='User Email'
-                            className='text-sm text-gray-base w-full  mr-3 py-3 px-4 h-2 border border-gray-200 rounded mb-2'
                             name='email'
                             type='email'
                             value={email}
@@ -77,7 +91,6 @@ const Login: React.FC<{}> = () => {
                     <div className=''>
                         <Input
                             label='Password'
-                            className='text-sm text-gray-base w-full  mr-3 py-3 px-4 h-2 border border-gray-200 rounded mb-2'
                             type='password'
                             name='password'
                             value={password}
@@ -85,10 +98,17 @@ const Login: React.FC<{}> = () => {
                     </div>
                     <div className='float-right py-4 px-2 place-content-center flex flex-row'>
                         <div>
-                            {showMessage && <p className='text-sm text-center text-blue-900'>Your loing Check Food!</p>}
+                            <p className='text-sm mt-3 text-red-950'>{message}</p>
                         </div>
-                        <button type="button" className="text-center flex flex-row py-2 px-4 " onClick={onCancleHhandler}>Cancel</button>
-                        <button type="submit" className="bg-blue-600 rounded py-2 px-4 text-center text-white">Login</button>
+                        <button
+                            type="button"
+                            className="text-center flex flex-row py-2 px-4 "
+                            onClick={onCancleHhandler}>Cancel</button>
+                        <button
+                            type="submit"
+                            className="text-white bg-opacity-75 bg-black hover:bg-gray-950 focus:ring-4 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-gray-800 dark:hover:bg-gray-900 dark:focus:ring-gray-950">
+                            Login
+                        </button>
                     </div>
                 </div>
             </Form>

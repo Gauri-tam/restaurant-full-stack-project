@@ -21,13 +21,15 @@ public class RestaurantController {
 
     private final MenusServiceImp menusServiceImp;
 
-    // restaurant data -> CURD http://localhost:8080/restaurant/getMenusByRest
+    // restaurant data -> CURD http://localhost:8080/restaurant/**
 
+    // working -> react
     @PostMapping("/add")
     public ResponseEntity<Restaurant> createRestaurant(@RequestBody Restaurant restaurant) {
         return ResponseEntity.ok(restaurantServiceImp.create(restaurant));
     }
 
+    // working -> react
     @GetMapping("/get")
     public ResponseEntity<Page<Restaurant>> getAllRestaurant(@RequestParam(value = "pageNo", defaultValue = "0", required = false) Integer pageNo,
                                                              @RequestParam(value = "pageSize", defaultValue = "10", required = false) Integer pageSize) {
@@ -35,22 +37,9 @@ public class RestaurantController {
         return ResponseEntity.ok(restaurantServiceImp.getAll(pageable));
     }
 
-    @GetMapping("/getRestByMenu")
-    public ResponseEntity<Page<Restaurant>> getRestByMenuName(@RequestParam(value = "pageNo", defaultValue = "0", required = false )Integer pageNo,
-                                                              @RequestParam(value = "pageSize", defaultValue = "10", required = false) Integer pageSize,
-                                                              @RequestParam(value = "MenuItemName", defaultValue = "") String menuItemName){
-        Pageable pageable = PageRequest.of(pageNo, pageSize);
-        return ResponseEntity.ok(restaurantServiceImp.getRestByMenuItem(pageable, menuItemName));
-    }
-
     @PutMapping("/edit/{id}")
-    public ResponseEntity<Restaurant> update(@RequestBody Restaurant restaurant, @PathVariable("Id") Long id) {
+    public ResponseEntity<Restaurant> update(@RequestBody Restaurant restaurant, @PathVariable("id") Long id) {
         return ResponseEntity.ok(restaurantServiceImp.update(restaurant, id));
-    }
-
-    @GetMapping("/get/{id}")
-    public ResponseEntity<Restaurant> getById(@PathVariable("id") Long id) {
-        return ResponseEntity.ok(restaurantServiceImp.getById(id));
     }
 
     @DeleteMapping("delete/{id}")
@@ -60,11 +49,13 @@ public class RestaurantController {
 
     // menus data -> CURD
 
+    // working -> react
     @PostMapping("/addMenu")
     public ResponseEntity<Menus> createMenu(@RequestBody Menus menus) {
         return ResponseEntity.ok(menusServiceImp.createMenuItem(menus));
     }
 
+    // working -> react
     @GetMapping("/getMenus")
     public ResponseEntity<Page<Menus>> getAllMenus(@RequestParam(value = "pageNo", defaultValue = "0", required = false) Integer pageNo,
                                                    @RequestParam(value = "pageSize", defaultValue = "10", required = false) Integer pageSize) {
@@ -72,22 +63,9 @@ public class RestaurantController {
         return ResponseEntity.ok(menusServiceImp.getAllMenuItem(pageable));
     }
 
-    @GetMapping("/getMenusByRest")
-    public ResponseEntity<Page<Menus>> getMenuByRestName(@RequestParam(value = "pageNo", defaultValue = "0", required = false) Integer pageNo,
-                                                         @RequestParam(value = "pageSize", defaultValue = "10", required = false) Integer pageSize,
-                                                         @RequestParam(value = "restaurantName", defaultValue = "") String restaurantName) {
-        Pageable pageable = PageRequest.of(pageNo, pageSize);
-        return ResponseEntity.ok(menusServiceImp.getMenuByRestName(pageable, restaurantName));
-    }
-
     @PutMapping("/editMenu/{id}")
     public ResponseEntity<Menus> updateMenu(@RequestBody Menus menus, @PathVariable("id") Long id) {
         return ResponseEntity.ok(menusServiceImp.updateMenuItem(menus, id));
-    }
-
-    @GetMapping("/getMenu/{id}")
-    public ResponseEntity<Menus> getMenuById(@PathVariable("id") Long id) {
-        return ResponseEntity.ok(menusServiceImp.getMenuItemById(id));
     }
 
     @DeleteMapping("deleteMenu/{id}")

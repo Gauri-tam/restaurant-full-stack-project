@@ -9,16 +9,22 @@ interface Props extends React.HTMLAttributes<HTMLInputElement>{
 
 const PrivateRoute: React.FC<Props> = ({ element, ...rest }) => {
 
+    // customer || restaurant owner
     const [authenticated, setAuthenticated] = useState(false);
     const [loading, setLoading] = useState(true);
-    const location = useLocation(); // To preserve the location of the protected route
+
+    // To preserve the location of the protected route
+    const location = useLocation(); 
 
     useEffect(() => {
         // Check authentication status
         const checkAuth = async () => {
             try {
-                const result = await Axios.get('http://localhost:8080/api/auth/authenticate', { withCredentials: true }); // 'Access-Control-Allow-Origin': '*',  search about it 
-                setAuthenticated(!!result.data); // Assuming a truthy result means authenticated
+                 // 'Access-Control-Allow-Origin': '*',  search about it 
+                const result = await Axios.get('http://localhost:8080/api/auth/authenticate', { withCredentials: true });
+
+                 // Assuming a truthy result means authenticated
+                setAuthenticated(!!result.data);
             } catch (error) {
                 console.log(error);
                 setAuthenticated(false);
@@ -33,13 +39,16 @@ const PrivateRoute: React.FC<Props> = ({ element, ...rest }) => {
     
 
     if (loading) {
-        return <div className='text-center text-blue-600'>Loading...</div>; // Or a spinner/loading component
+
+        // Or a spinner/loading component
+        return <div className='text-center text-blue-600'>Loading...</div>; 
     }
 
     return authenticated ? (
         <Login />
     ) : (
-        <Navigate to="/login" state={{ from: location }} replace /> // Redirect to login page
+        // Redirect to login page
+        <Navigate to="/login" state={{ from: location }} replace /> 
     );
 };
 

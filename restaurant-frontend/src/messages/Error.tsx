@@ -18,25 +18,27 @@ const Error: React.FC<Props> = ({ message }) => {
     }
 
     return (
-        <div className="text-center grid place-content-center max-h-56">
+        <div className="mt-20 text-center grid place-content-center max-h-56 bg-opacity-0">
             <div>
-                <h1>An Error Occured!</h1>
+                <h1 className="text-opacity-85 text-black font-semibold text-3xl">Oops..!</h1>
             </div>
             <div>
-                <p className="grid palce-items-center" >{message}</p>
+                <p className="text-opacity-85 text-black font-semibold mt-5 text-xl grid palce-items-center bg-opacity-0" >{message}</p>
             </div>
-            <div className="float-right py-4 px-2 place-content-center flex flex-row">
+            <div className="text-opacity-85 text-black font-semibold mt-5 text-xl place-items-center bg-opacity-0">
+                <p>Please Login!</p>
+            </div>
+            <div className="mt-5 end-4 float-right py-4 px-2 place-content-end flex flex-row bg-opacity-0">
                 <button
                     type="button"
-                    className="text-center flex flex-row py-2 px-4 "
+                    className="text-center font-semibold flex flex-row py-2 px-4 bg-opacity-0 "
                     onClick={goBackToHandler}>
                     Okay
                 </button>
-
                 <button
-                    type="button"
+                    type="button" 
                     onClick={loginHandler}
-                    className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    className=" text-white opacity-75 bg-black hover:bg-gray-950 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-gray-800 dark:hover:bg-gray-900 dark:focus:ring-gray-950">
                     Login
                 </button>
             </div>

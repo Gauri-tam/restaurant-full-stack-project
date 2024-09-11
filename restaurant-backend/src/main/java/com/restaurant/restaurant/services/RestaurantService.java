@@ -18,5 +18,5 @@ public interface RestaurantService {
 
     public String delete(Long id);
 
-    public Page<Restaurant> getRestByMenuItem(Pageable pageable, String menuItemName);
+    //public Page<Restaurant> getRestByMenuItem(Pageable pageable, String menuItemName);
 }

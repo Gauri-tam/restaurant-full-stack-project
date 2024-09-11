@@ -16,4 +16,10 @@ public interface MenusRepository extends JpaRepository<Menus, Long> {
     @Query(value = "select m.*, r.restaurant_id as rest_id, r.restaurant_name as rest_name from menus m inner join restaurant r on m.restaurant_id = r.restaurant_id where r.restaurant_name = :restaurantName", nativeQuery = true)
     Page<Menus> findByRestaurantName(Pageable pageable, @Param("restaurantName") String restaurantName);
 
+    // Search for menu items by restaurant name
+    @Query(value = "SELECT m.*, r.restaurant_id as rest_id, r.restaurant_name as rest_name FROM menus m INNER JOIN restaurant r ON m.restaurant_id = r.restaurant_id WHERE r.restaurant_name LIKE %:restaurantName%", nativeQuery = true)
+    Page<Menus> findByRestaurantName(@Param("restaurantName") String restaurantName, Pageable pageable);
+
+    @Query(value ="SELECT  m.* FROM menus m WHERE m.menu_item_name like %:menuName%" , nativeQuery = true)
+    Page<Menus> onlyGetMenuItem(Pageable pageable,@Param("menuName") String menuName);
 }
