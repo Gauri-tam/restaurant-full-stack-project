@@ -40,18 +40,23 @@ const FoodDetails: React.FC = () => {
 
     if (loading) {
         return <div className="text-center text-black">Loading...</div>;
-    }
+    }//mx-60 my-5
 
     return (
         <>
-            <div className=" bg-white justify-items-start">
-                <SearchBar placeholder="Food" />
-            </div>
-            <div className=" w-full h-full flex items-center justify-center bg-white">
-                <div className="mx-10 my-5 justify-between">
-                    {isError && <Error message="You Don't Have Permission to Access This Resource!" />}
-                    <div className="mx-60 my-5 place-items-center grid grid-cols-3 gap-3 content-stretch">
-                        <MenuItems menuData={foods} />
+            <div className="min-h-screen flex flex-col bg-white">
+                {/* Header or any other top content */}
+                <div className="justify-items-start">
+                    <SearchBar placeholder="Food" />
+                </div>
+
+                {/* Main content area */}
+                <div className="flex-grow fleX items-center justify-center bg-white">
+                    <div className="mx-60 my-5 justify-between ">
+                        {isError && <Error message="You Don't Have Permission to Access This Resource!" />}
+                        <div className="grid grid-cols-3 gap-3 content-stretch place-items-center">
+                            <MenuItems menuData={foods} />
+                        </div>
                     </div>
                 </div>
             </div>

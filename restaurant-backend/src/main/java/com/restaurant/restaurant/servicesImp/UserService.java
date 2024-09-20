@@ -26,21 +26,26 @@ public class UserService {
                 }).orElse(null);
     }
 
-    public User getUserById(Integer id){
+    public User getUserById(Integer id) {
         Optional<User> userById = userRepo.findById(id);
         return userById.orElse(null);
     }
 
-    public List<User> getAllUser(){
+    public List<User> getAllUser() {
         return userRepo.findAll();
     }
 
-    public String deleteUser(Integer id){
+    public String deleteUser(Integer id) {
 
         if (userRepo.existsById(id)) {
             userRepo.deleteById(id);
             return "Deleted!";
         }
         return "Not Found!";
+    }
+
+    public User getUserByEmail(String email) {
+        Optional<User> emailOp = userRepo.findByEmail(email);
+        return emailOp.orElse(null);
     }
 }

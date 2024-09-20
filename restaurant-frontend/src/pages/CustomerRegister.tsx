@@ -2,15 +2,17 @@ import React, { useState } from 'react';
 import Input from "../component/Input";
 import axios from 'axios'
 import { Form, Link, redirect, useNavigate } from 'react-router-dom';
+import GeanerateId from '../features/GenerateId';
 
 const CustomerRegister: React.FC<{}> = () => {
 
+    const id = GeanerateId();
     const navigate = useNavigate();
-
+    let message: string = "";
     const [showMessage, setShowMassge] = useState<boolean>();
     const [isRegister, setIsRegister] = useState<boolean>()
-
     const [userRegister, setUserRegister] = useState({
+        userId: id,
         firstName: "",
         lastName: "",
         email: "",
@@ -18,7 +20,7 @@ const CustomerRegister: React.FC<{}> = () => {
         phone: ""
     });
 
-    const { firstName, lastName, email, password, phone } = userRegister;
+    const { userId, firstName, lastName, email, password, phone } = userRegister;
 
     const onInputChange = (event: any) => {
         setUserRegister({
@@ -29,9 +31,16 @@ const CustomerRegister: React.FC<{}> = () => {
 
     const onSubmitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        await axios.post("http://localhost:8080/api/auth/customerRegistration", userRegister);
-        setIsRegister(true);
-        setShowMassge(true);
+        try {
+            const response = await axios.post("http://localhost:8080/api/auth/customerRegistration", userRegister);
+            setIsRegister(true);
+            setShowMassge(true);
+            message = response.data.Message
+            localStorage.setItem("customerId", userRegister.userId +"")
+        } catch (error) {
+            console.error("Error Occured!")
+        }
+
     };
 
     if (isRegister) {
@@ -98,7 +107,8 @@ const CustomerRegister: React.FC<{}> = () => {
                     </div>
                     <div className='float-right py-4 px-2 place-content-center flex flex-row'>
                         <div>
-                            {showMessage && <p className='text-sm text-center text-blue-900'>Your Registered!</p>}
+                            {showMessage && <p className='mt-2 mr-10 text-black font-normal text-sx'>{message}</p>}
+                            {!showMessage && <p className='mt-2 mr-10 text-black font-normal text-sx '>If You Are Registred Please <Link className='text-black font-semibold' to={'/login'}>Login</Link></p>}
                         </div>
                         <button
                             type='button'
@@ -109,7 +119,6 @@ const CustomerRegister: React.FC<{}> = () => {
                             className="text-white bg-opacity-75 bg-black hover:bg-gray-950 focus:ring-4 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-gray-800 dark:hover:bg-gray-900 dark:focus:ring-gray-950" >
                             Submit
                         </button>
-
                     </div>
                 </div>
             </Form>

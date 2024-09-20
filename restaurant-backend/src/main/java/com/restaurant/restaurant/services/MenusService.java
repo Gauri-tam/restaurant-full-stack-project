@@ -19,4 +19,6 @@ public interface MenusService {
     public Page<Menus> getAllMenuItem(Pageable pageable);
 
     public Page<Menus> getMenuByRestName(Pageable pageable, String restaurantName);
+
+    List<Menus> getMenuByRestId(Long restId);
 }

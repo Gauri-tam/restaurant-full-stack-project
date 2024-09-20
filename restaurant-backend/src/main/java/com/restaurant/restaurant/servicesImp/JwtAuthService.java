@@ -50,8 +50,15 @@ public class JwtAuthService {
                     .message("This User Email Is Already Registered! Try login!")
                     .build();
         }
-
+        if (request.getUserId() == null) {
+            return UserRegisterResponse
+                    .builder()
+                    .userName(request.getEmail())
+                    .message("User ID must be provided")
+                    .build();
+        }
         var user = User.builder()
+                .userId(request.getUserId())
                 .firstName(request.getFirstName())
                 .lastName(request.getLastName())
                 .email(request.getEmail())
@@ -153,6 +160,7 @@ public class JwtAuthService {
         }
 
         var user = User.builder()
+                .userId(request.getUserId())
                 .firstName(request.getFirstName())
                 .lastName(request.getLastName())
                 .email(request.getEmail())

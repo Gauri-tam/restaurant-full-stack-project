@@ -32,6 +32,7 @@ public class SecurityConfig {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(req ->
                         req.requestMatchers("/api/auth/**").permitAll()
+                                .requestMatchers("/api/auth/user/**").permitAll()
                                 .requestMatchers("/admin/**").hasAnyRole(SUPER_ADMIN.name(),RESTAURANT.name(), CUSTOMER.name()) // ceo
                                 .requestMatchers(GET, "/admin/**").hasAuthority(SUPER_ADMIN_READ.name())
                                 .requestMatchers(POST, "/admin/**").hasAuthority(SUPER_ADMIN_CREATE.name())
@@ -55,7 +56,7 @@ public class SecurityConfig {
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .logout(logout-> logout
-                        .logoutUrl("/auth/logout")
+                        .logoutUrl("/api/auth/logout")
                         .addLogoutHandler(logoutService)
                         .logoutSuccessHandler((request, response, authentication) -> SecurityContextHolder.clearContext()));
         return http.build();

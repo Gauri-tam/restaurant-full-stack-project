@@ -1,5 +1,3 @@
-// import "./App.css";
-// import 'bootstrap/dist/css/bootstrap.min.css';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import BackGroundImg from './images/wooden-board-empty-table-top-blurred-background.jpg'
 import Login from "./pages/Login";
@@ -10,6 +8,10 @@ import AddMenus from './pages/AddMenus';
 import PageNotFound from "./component/PageNotFound";
 import AddRestaurant from "./pages/AddRestaurant";
 import Restaurants from "./pages/Restaurants";
+import Logout from "./pages/Logout";
+import UserData from "./datacollection/UserData";
+import RestaurantData from "./datacollection/RestaurantData";
+import MenuData from "./datacollection/MenuData";
 
 function App() {
   const router = createBrowserRouter([
@@ -30,29 +32,48 @@ function App() {
           element: <Login />
         },
         {
+          path: "data",
+          children: [
+            {
+              path: "userData",
+              element: <UserData />
+            },
+            {
+              path: "restaurantData",
+              element: <RestaurantData />
+            },
+            {
+              path: "menuData",
+              element: <MenuData restaurantId={null} />,
+            }
+          ]
+        },
+        {
           path: 'restaurant',
           children: [
             {
               path: "add",
               element: <AddRestaurant />,
-              children: [
-                {
-                  path: "addMenu",
-                  element: <AddMenus />
-                }
-              ] // post restaurant data in database with menus
+            },
+            {
+              path: "addMenu",
+              element: <AddMenus />
             },
             {
               path: "get",
-              element: <Restaurants />, // get all restaurant data
+              element: <Restaurants />,
             },
           ]
+        },
+        {
+          path: 'logout',
+          element: <Logout />
         }
       ]
     },
     {
       path: '*',
-      element: <PageNotFound />  // user is redirect to Other Page 
+      element: <PageNotFound />
     }
   ])
 
@@ -65,8 +86,6 @@ function App() {
       </div>
     </div>
   )
-
-
 }
 
 export default App;

@@ -2,6 +2,7 @@ package com.restaurant.restaurant.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Entity
 public class Address {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotNull(message = "Address id not be null!")
     private Integer addressId;
     private Integer restaurantPincode;
     private String restaurantCity;

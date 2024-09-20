@@ -67,7 +67,7 @@ public class SuperAdminController {
         return ResponseEntity.ok(restaurantServiceImp.update(restaurant, id));
     }
 
-    @GetMapping("/get/{id}")
+    @GetMapping("/getRest/{id}")
     public ResponseEntity<Restaurant> getById(@PathVariable("id") Long id) {
         return ResponseEntity.ok(restaurantServiceImp.getById(id));
     }
@@ -80,8 +80,8 @@ public class SuperAdminController {
     // menus data -> CURD
 
     @PostMapping("/addMenu")
-    public ResponseEntity<Menus> createMenu(@RequestBody Menus menus) {
-        return ResponseEntity.ok(menusServiceImp.createMenuItem(menus));
+    public ResponseEntity<Menus> createMenu(@RequestBody Menus menus ) {
+        return ResponseEntity.ok(menusServiceImp.createMenuItem( menus));
     }
 
     @GetMapping("/getMenus")

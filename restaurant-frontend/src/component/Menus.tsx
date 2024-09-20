@@ -13,29 +13,25 @@ const Menus: React.FC<MenuDetails> = ({ image, name, description, price }) => {
     const [isBestSeller, setBestSeller] = useState<boolean>(false);
 
     useEffect(() => {
-        const number = Math.floor(Math.random() * 10)
-        if (number > 3) {
-            if (number >= 7) {
-                setBestSeller(true)
-            }
-            setRamdom(number);
-        } else {
-            setRamdom(4);
+        const number = Math.floor(Math.random() * (10 - 4)) + 4;
+
+        if (number >= 7) {
+            setBestSeller(true)
         }
+
+        setRamdom(number);
     }, [])
 
     return (
         <>
             <div className="">
                 <div className=" h-full p-4 bg-transparen rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                    <a href={image} className="w-full place-self-center">
-                        <img className=" object-cover flex rounded-xl place-items-end" src={image} alt={name} />
-                    </a>
+                    <img className="select-none object-cover w-full h-52 flex rounded-xl place-items-end" src={image} alt={name} />
                     <div className="">
                         <h3 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{name}</h3>
                         <div className="flex justify-between">
                             <h5 className="mb-2 text-2xl border-1 border-blue-gray-900 font-bold tracking-tight text-gray-900 dark:text-white">{`$${price}`}</h5>
-                           { isBestSeller && <p className="w-20 bg-light-blue-700 mt-3 rounded text-white text-center border-1">BestSeller</p>}
+                            {isBestSeller && <p className="w-20 mt-2 mb-2 rounded text-white border-1 bg-gradient-to-l from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium  text-sm p-2 me-2  ">BestSeller</p>}
                         </div>
                         <p className="mb-3 font-normal text-gray-900 dark:text-gray-400">{description}</p>
                         <div className="flex justify-between">

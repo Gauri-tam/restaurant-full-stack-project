@@ -9,7 +9,8 @@ import java.util.List;
 
 public interface RestaurantService {
 
-    public Restaurant create(Restaurant restaurant);
+    public Restaurant create( Restaurant restaurant);
+
     public Page<Restaurant> getAll(Pageable pageable);
 
     public Restaurant update(Restaurant restaurant, Long id);

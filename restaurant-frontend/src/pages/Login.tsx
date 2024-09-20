@@ -8,7 +8,7 @@ const Login: React.FC<{}> = () => {
 
     const navigate = useNavigate()
     const emailRegex = /^[^\s@]+@gmail\.com$/;
-    const [message, setMessage] = useState<string>('')
+    const [message, setMessage] = useState<string>('You are Login Now')
     const [userLogin, setUserLogin] = useState({
         email: "",
         password: "",
@@ -43,8 +43,10 @@ const Login: React.FC<{}> = () => {
 
         if (userLogin.email.endsWith("@gmail.com")) {
             setMessage("email is Must includes @gmail.com")
+        }else{
+            setMessage("User Login!")
         }
-
+        
         try {
             const response = await axios.post('http://localhost:8080/api/auth/authenticate', userLogin);
 
@@ -54,8 +56,7 @@ const Login: React.FC<{}> = () => {
             if (response.status === 200 && response.data?.accessToken) {
                 localStorage.setItem('accessToken', response.data.accessToken);
                 setMessage("You are Login!")
-                console.log("Access token saved to localStorage:", response.data.accessToken);
-                navigate("/restaurant/get")
+                // navigate("/restaurant/get")
             }
 
         } catch (error: any) {

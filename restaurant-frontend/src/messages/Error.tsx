@@ -18,14 +18,14 @@ const Error: React.FC<Props> = ({ message }) => {
     }
 
     return (
-        <div className="mt-20 text-center grid place-content-center max-h-56 bg-opacity-0">
+        <div className="bg-transparent text-center grid place-content-center max-h-56 bg-opacity-0">
             <div>
-                <h1 className="text-opacity-85 text-black font-semibold text-3xl">Oops..!</h1>
+                <h1 className=" bg-transparent text-opacity-85 text-black font-semibold text-3xl">Oops..!</h1>
             </div>
             <div>
-                <p className="text-opacity-85 text-black font-semibold mt-5 text-xl grid palce-items-center bg-opacity-0" >{message}</p>
+                <p className=" bg-transparent text-opacity-85 text-black font-semibold mt-5 text-xl grid palce-items-center bg-opacity-0" >{message}</p>
             </div>
-            <div className="text-opacity-85 text-black font-semibold mt-5 text-xl place-items-center bg-opacity-0">
+            <div className="bg-transparent text-opacity-85 text-black font-semibold mt-5 text-xl place-items-center bg-opacity-0">
                 <p>Please Login!</p>
             </div>
             <div className="mt-5 end-4 float-right py-4 px-2 place-content-end flex flex-row bg-opacity-0">

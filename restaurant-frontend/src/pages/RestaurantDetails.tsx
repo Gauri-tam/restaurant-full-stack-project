@@ -10,7 +10,6 @@ const RestaurantDetails: React.FC = () => {
     const [restaurants, setRestaurants] = useState<any[]>([]);
     const [loading, setLoading] = useState<boolean>(true);  // https://png.pngtree.com/background/20231031/original/pngtree-3d-render-of-the-interior-of-a-cozy-cafe-restaurant-picture-image_5812445.jpg  
    
-
     useEffect(() => { 
         const getdata = async () => {
             try {
@@ -41,23 +40,27 @@ const RestaurantDetails: React.FC = () => {
 
     if (loading) {
         return <div className="text-center text-black">Loading...</div>;
-    }
+    }//mx-60 my-5
 
     return (
         <>
-            <div className=" bg-white justify-items-start">
+        <div className="min-h-screen flex flex-col bg-white">
+            {/* Header or any other top content */}
+            <div className="justify-items-start">
                 <SearchBar placeholder="Restaurant" />
             </div>
-            <div className=" w-full h-full flex items-center justify-center bg-white">
-                <div className="mx-10 my-5 justify-between">
+    
+            {/* Main content area */}
+            <div className="flex-grow flex items-center justify-center bg-white">
+                <div className="mx-10 my-5 justify-between w-full h-full">
                     {isError && <Error message="You Don't Have Permission to Access This Resource!" />}
-                    <div className="mx-60 my-5 place-items-center grid grid-cols-3 gap-3 content-stretch">
+                    <div className="grid grid-cols-3 gap-3 content-stretch place-items-center">
                         <RestaurantList restaurantData={restaurants} />
                     </div>
                 </div>
             </div>
-
-        </>
+        </div>
+    </>
     );
 };
 

@@ -1,4 +1,4 @@
-import Header from '../pages/Header'
+import Header from './Header'
 import Footer from './Footer'
 
 interface Props extends React.HTMLAttributes<HTMLInputElement> {

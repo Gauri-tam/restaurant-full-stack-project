@@ -3,15 +3,17 @@ import Input from "../component/Input";
 import axios from 'axios'
 import { Form, useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import GeanerateId from '../features/GenerateId';
 
 const RestaurantRegister: React.FC<{}> = () => {
 
     const navigate = useNavigate();
-
+    const id = GeanerateId()
     const [showMessage, setShowMessage] = useState<boolean>(false);
     const [isRegister, setIsRegister] = useState<boolean>(false);
 
     const [userRegister, setUserRegister] = useState({
+        userId: id,
         firstName: "",
         lastName: "",
         email: "",
@@ -19,7 +21,7 @@ const RestaurantRegister: React.FC<{}> = () => {
         phone: ""
     });
 
-    const { firstName, lastName, email, password, phone } = userRegister;
+    const { userId, firstName, lastName, email, password, phone } = userRegister;
 
     const onInputChange = (event: any) => {
         setUserRegister({
@@ -29,11 +31,13 @@ const RestaurantRegister: React.FC<{}> = () => {
     };
 
     const onSubmitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
+
         event.preventDefault();
         try {
             await axios.post("http://localhost:8080/api/auth/restaurantRegistration", userRegister);
             setIsRegister(true);
             setShowMessage(true);
+            localStorage.setItem("ownerId", userId+ "")
         } catch (error: any) {
             console.error("Registration failed:", error.response ? error.response.data : error.message);
             setShowMessage(false);

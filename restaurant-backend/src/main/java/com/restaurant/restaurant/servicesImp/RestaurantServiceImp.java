@@ -3,6 +3,7 @@ package com.restaurant.restaurant.servicesImp;
 
 import com.restaurant.restaurant.entity.Restaurant;
 import com.restaurant.restaurant.repository.RestaurantRepository;
+import com.restaurant.restaurant.repository.UserRepo;
 import com.restaurant.restaurant.services.RestaurantService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -16,11 +17,13 @@ import java.util.Optional;
 public class RestaurantServiceImp implements RestaurantService {
 
     private final RestaurantRepository restaurantRepository;
+    private final UserRepo userRepo;
 
     @Override
-    public Restaurant create(Restaurant restaurant) {
-        return restaurantRepository.save(restaurant);
+    public Restaurant create( Restaurant restaurant) {
+       return restaurantRepository.save(restaurant);
     }
+
 
     public Page<Restaurant> getAll(Pageable pageable) {
         return restaurantRepository.findAll(pageable);

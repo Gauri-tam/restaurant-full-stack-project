@@ -69,7 +69,7 @@ public class JwtServices {
         return Jwts.builder()
                 .setClaims(claims)
                 .setSubject(user.getEmail())
-                .claim("name", user.getFirstName() + " " + user.getLastName())
+                .claim("uid", user.getUserId())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + expiration))
                 .signWith(getSignKey(), SignatureAlgorithm.HS256)

@@ -16,7 +16,6 @@ import java.util.Optional;
 public class MenusServiceImp implements MenusService {
 
     private final MenusRepository menusRepository;
-
     @Override
     public Menus createMenuItem(Menus menus) {
         return menusRepository.save(menus);
@@ -56,5 +55,10 @@ public class MenusServiceImp implements MenusService {
     @Override
     public Page<Menus> getMenuByRestName(Pageable pageable, String restaurantName) {
         return menusRepository.findByRestaurantName(pageable, restaurantName);
+    }
+
+    @Override
+    public List<Menus> getMenuByRestId(Long restId) {
+       return menusRepository.getMenuByRestId(restId);
     }
 }

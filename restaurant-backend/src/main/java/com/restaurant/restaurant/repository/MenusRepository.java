@@ -9,9 +9,14 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 @EnableJpaRepositories
 public interface MenusRepository extends JpaRepository<Menus, Long> {
+
+    @Query(value = "SELECT * FROM menus m  WHERE m.restaurant_id = :restId ", nativeQuery = true)
+    List<Menus> getMenuByRestId(@Param("restId") Long restId);
 
     @Query(value = "select m.*, r.restaurant_id as rest_id, r.restaurant_name as rest_name from menus m inner join restaurant r on m.restaurant_id = r.restaurant_id where r.restaurant_name = :restaurantName", nativeQuery = true)
     Page<Menus> findByRestaurantName(Pageable pageable, @Param("restaurantName") String restaurantName);

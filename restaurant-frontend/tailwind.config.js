@@ -3,11 +3,14 @@ const withMT = require("@material-tailwind/react/utils/withMT");
 
 module.exports = withMT({
   content: [
-    "./src/**/*.{js,jsx,ts,tsx}"
+    "./src/**/*.{js,jsx,ts,tsx}",
+     'node_modules/preline/dist/*.js'
   ],
   theme: {
     extend: {},
   },
-  plugins: [],
+  plugins: [
+    require('preline/plugin'),
+  ],
 })
 

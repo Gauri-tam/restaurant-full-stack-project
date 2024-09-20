@@ -1,5 +1,6 @@
 package com.restaurant.restaurant.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.restaurant.restaurant.enumarate.TokenType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -25,6 +26,7 @@ public class Token {
     private boolean revoked;
     private boolean expire;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;

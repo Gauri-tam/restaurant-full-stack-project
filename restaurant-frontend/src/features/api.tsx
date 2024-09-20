@@ -7,7 +7,7 @@ export const restaurantApi = axios.create({
 })
 
 // Add an interceptor for all Customer requests  
-restaurantApi.interceptors.request.use((config: any) => {
+    restaurantApi.interceptors.request.use((config: any) => {
 
     const accessToken = localStorage.getItem("accessToken");
     config.headers.Authorization = `Bearer ${accessToken}`;
@@ -29,4 +29,3 @@ restaurantApi.interceptors.request.use((config: any) => {
 
 //     return config;
 // });
-

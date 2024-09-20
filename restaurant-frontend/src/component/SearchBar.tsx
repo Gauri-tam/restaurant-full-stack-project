@@ -17,13 +17,12 @@ const SearchBar: React.FC<Props> = ({ placeholder }) => {
 
     const findByNameHandler = async (item: string) => {  // Foods || Restaurant ;
         try {
-
             if (placeholder === "Restaurant") {
                 const response = await restaurantApi.get(`/restaurantName?name=${item}`)
-                if ( response.data.content.empty === true) {
+                if (response.data.content.empty === true) {
                     <div>Not Available this Item</div>
                 }
-                
+
                 if (response.status === 200) {
                     setGetInputValue(true);
                     setGetData(response.data.content)
@@ -61,7 +60,6 @@ const SearchBar: React.FC<Props> = ({ placeholder }) => {
 
     return (
         <>
-
             <div>
                 <form className="border-4 border-white bg-white max-w-md mx-auto bg-opacity-0">
                     <label htmlFor="default-search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-black">
@@ -88,27 +86,19 @@ const SearchBar: React.FC<Props> = ({ placeholder }) => {
                             autoComplete="off"
                             onChange={changeHandler}
                             required />
-                        {/* <button
-                            type="submit"
-                            className="text-white mr-2 absolute opacity-75 end-0 bottom-2 bg-black hover:bg-gray-950 focus:ring-4 focus:outline-none focus:ring-black font-medium rounded-lg text-sm px-4 py-2 dark:bg-gray-800 dark:hover:bg-gray-900 dark:focus:ring-gray-950">
-                            Search
-                        </button> */}
                     </div>
                 </form>
             </div>
             {getInputValue &&
-                (isFoodSection ?
-                    (
-                        <SearchItemCard cardName={placeholder}>
-                            <MenuItems menuData={getData} />
-                        </SearchItemCard>
-                    )
-                    :
-                    (
-                        <SearchItemCard cardName={placeholder}>
-                            <RestaurantList restaurantData={getData} />
-                        </SearchItemCard>
-                    )
+                (
+                    <SearchItemCard cardName={placeholder} >
+                        {
+                            isFoodSection ?
+                                <MenuItems menuData={getData} />
+                                :
+                                <RestaurantList restaurantData={getData} />
+                        }
+                    </SearchItemCard >
                 )
             }
         </>
