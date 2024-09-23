@@ -52,7 +52,7 @@ const RestaurantDetails: React.FC = () => {
     
             {/* Main content area */}
             <div className="flex-grow flex items-center justify-center bg-white">
-                <div className="mx-10 my-5 justify-between w-full h-full">
+                <div className=" mx-10 my-5 justify-between  h-full">
                     {isError && <Error message="You Don't Have Permission to Access This Resource!" />}
                     <div className="grid grid-cols-3 gap-3 content-stretch place-items-center">
                         <RestaurantList restaurantData={restaurants} />
