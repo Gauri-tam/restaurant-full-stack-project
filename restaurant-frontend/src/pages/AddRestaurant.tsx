@@ -30,8 +30,9 @@ const AddRestaurant = () => {
     });
 
     console.log(restaurantDetails);
+    // const { restaurantId, restaurantName, address: { addressId, restaurantPincode, restaurantCity, restaurantState }, user:{userId} } = restaurantDetails;
     
-    const { restaurantId, restaurantName, address: { addressId, restaurantPincode, restaurantCity, restaurantState }, user:{userId} } = restaurantDetails;
+    const { restaurantName, address: { restaurantPincode, restaurantCity, restaurantState }, user:{userId} } = restaurantDetails;
 
     console.log(userId);
 

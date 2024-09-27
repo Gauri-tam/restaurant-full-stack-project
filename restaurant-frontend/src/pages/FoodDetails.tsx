@@ -13,7 +13,7 @@ const FoodDetails: React.FC = () => {
     useEffect(() => {
         const getdata = async () => {
             try {
-                const response = await restaurantApi.get("/getMenus");
+                const response = await restaurantApi.get("/getMenus"); 
                 console.log("Response received:", response);
 
                 if (response.data && response.data.content) {

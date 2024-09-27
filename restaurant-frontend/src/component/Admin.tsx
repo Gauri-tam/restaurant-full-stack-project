@@ -2,7 +2,7 @@ import { MdOutlineNavigateNext } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
-const Admin = () =>{
+const Admin = () => {
 
     const [isOpen, setIsOpen] = useState(false);
 
@@ -10,15 +10,16 @@ const Admin = () =>{
         setIsOpen(!isOpen);
     };
 
-    return(
+    return (
         <div className="hs-dropdown relative inline-flex">
             <button
                 id="dropdownDefaultButton"
                 onClick={toggleDropdown}
-                className="text-gray-400 bg-black bg-opacity-80 px-4 py-2 focus:bg-gray-900 hover:bg-gray-900 focus:outline-none font-medium rounded-lg text-sm text-center inline-flex items-center"
+                className="text-gray-400 bg-black bg-opacity-80 mt-0.5 py-0.5 focus:bg-gray-900 hover:bg-gray-900 focus:outline-none font-medium rounded-lg text-sm text-center inline-flex items-center"
                 type="button"
-            >Admin <MdOutlineNavigateNext  />
-            
+            >Admin
+                    <MdOutlineNavigateNext />
+
             </button>
             {isOpen && (
                 <div id="dropdown" className="absolute left-0 mt-12 z-10 bg-opacity-75 bg-gray-800 divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">

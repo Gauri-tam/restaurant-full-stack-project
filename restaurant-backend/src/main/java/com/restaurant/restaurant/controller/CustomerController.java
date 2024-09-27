@@ -21,7 +21,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CustomerController {
 
-    // http://localhost:8080/customer/**
+        // http://localhost:8080/customer/**
 
     private  final RestaurantRepository restaurantRepository;
 

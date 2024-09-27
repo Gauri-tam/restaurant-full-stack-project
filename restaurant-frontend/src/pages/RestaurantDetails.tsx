@@ -40,7 +40,7 @@ const RestaurantDetails: React.FC = () => {
 
     if (loading) {
         return <div className="text-center text-black">Loading...</div>;
-    }//mx-60 my-5
+    } //mx-60 my-5
 
     return (
         <>

@@ -12,8 +12,11 @@ import Logout from "./pages/Logout";
 import UserData from "./datacollection/UserData";
 import RestaurantData from "./datacollection/RestaurantData";
 import MenuData from "./datacollection/MenuData";
+import CartModal from "./component/cart/CartModal";
+import BookRestaurant from "./component/cart/BookRestaurant";
 
 function App() {
+
   const router = createBrowserRouter([
     {
       path: '/',
@@ -25,11 +28,15 @@ function App() {
         },
         {
           path: 'customerRegister',
-          element: <CustomerRegister />
+          element: <CustomerRegister />,
         },
         {
           path: 'login',
           element: <Login />
+        },
+        {
+          path: "cart",
+          element: <CartModal />
         },
         {
           path: "data",
@@ -62,8 +69,18 @@ function App() {
             {
               path: "get",
               element: <Restaurants />,
+              children: [
+                {
+                  path: "cart",
+                  element: <CartModal />
+                }
+              ]
             },
           ]
+        },
+        {
+          path: "/bookPlace",
+          element: <BookRestaurant />
         },
         {
           path: 'logout',

@@ -13,6 +13,7 @@ const MenuItems: React.FC<Props> = ({ menuData }) => {
             {Array.isArray(menuData) && menuData?.map((menuItem) => (
                 <div key={menuItem.menuItemId} className="mt-10 ml-5 bg-white rounded-lg shadow-lg flex flex-col place-content-center">
                     <Menus
+                         id={menuItem.menuItemId}
                         image={menuItem.menuItemImage}
                         name={menuItem.menuItemName}
                         description={menuItem.menuItemDescription}
